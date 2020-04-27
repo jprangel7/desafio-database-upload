@@ -5,7 +5,7 @@ import Transaction from '../models/Transaction';
 
 interface Request {
   id: string;
-};
+}
 
 class DeleteTransactionService {
   public async execute({ id }: Request): Promise<void> {
@@ -13,8 +13,7 @@ class DeleteTransactionService {
 
     const transaction = await transactionRepository.findOne(id);
 
-    if (!transaction)
-      throw new AppError('Transaction not Found', 404);
+    if (!transaction) throw new AppError('Transaction not Found', 404);
 
     await transactionRepository.remove(transaction);
   }

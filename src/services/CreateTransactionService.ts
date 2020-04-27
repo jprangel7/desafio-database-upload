@@ -1,5 +1,5 @@
-import AppError from '../errors/AppError';
 import { getRepository, getCustomRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 
 import Transaction from '../models/Transaction';
 import Category from '../models/Category';
@@ -14,13 +14,18 @@ interface Request {
 }
 
 class CreateTransactionService {
-  public async execute({ title, value, type, category }: Request): Promise<Transaction> {
-    const transactionRepository =  getCustomRepository(TransactionsRepository);
+  public async execute({
+    title,
+    value,
+    type,
+    category,
+  }: Request): Promise<Transaction> {
+    const transactionRepository = getCustomRepository(TransactionsRepository);
     const categoryRepository = getRepository(Category);
 
     const balance = await transactionRepository.getBalance();
 
-    if (type === "outcome" && balance.total < value)
+    if (type === 'outcome' && balance.total < value)
       throw new AppError('No balance available for this transaction', 400);
 
     const checkCategoryExists = await categoryRepository.findOne({
@@ -37,13 +42,13 @@ class CreateTransactionService {
       transactionCategory = newCategory.id;
     } else {
       transactionCategory = checkCategoryExists.id;
-    };
+    }
 
     const transaction = transactionRepository.create({
       title,
       value,
       type,
-      category_id: transactionCategory,
+      category: transactionCategory,
     });
 
     await transactionRepository.save(transaction);
