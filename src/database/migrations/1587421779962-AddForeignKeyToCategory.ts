@@ -7,7 +7,7 @@ export default class AddForeignKeyToCategory1587421779962
       'transactions',
       new TableForeignKey({
         name: 'CategoryProvider',
-        columnNames: ['category'],
+        columnNames: ['category_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'categories',
         onDelete: 'SET NULL',

@@ -27,7 +27,7 @@ export default class CreateTrasaction1587409387291
             type: 'varchar',
           },
           {
-            name: 'category',
+            name: 'category_id',
             type: 'uuid',
             isNullable: true,
           },
