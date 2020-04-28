@@ -18,7 +18,7 @@ class Category {
   @Column()
   title: string;
 
-  @OneToMany(() => Transaction, transaction => transaction.category)
+  @OneToMany(() => Transaction, transaction => transaction.category_id)
   @JoinColumn({ name: 'transaction' })
   transaction: Transaction;
 
